@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormControl } from '@angular/forms';
+import { FormGroup,FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-equation',
@@ -18,9 +18,12 @@ export class EquationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //make random value till it refresh
   randomNumber(){
     return Math.floor(Math.random()*10);
   }
+
+  //get method for easy without accessing math.value.a
   get a(){
     return this.mathForm.value.a;
   }
@@ -28,5 +31,4 @@ export class EquationComponent implements OnInit {
   get b(){
     return this.mathForm.value.b;
   }
-
 }
