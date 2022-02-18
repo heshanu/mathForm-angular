@@ -1,7 +1,7 @@
 <div class="container">
     <form [formGroup]="mathForm">
         <div class="equation">{{a}} + {{b}}=</div>
-        <input [ngClass]="{ highlight: (a+b) *.8 } " type="text" formControlName="answer">
+        <input appAnswerHighlight type="text" formControlName="answer">
     </form>
     
     <div class="stats" >
