@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormsModule } from '@angular/forms';
 import {MathValidators} from '../math-validators';
+import {delay,filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-equation',
@@ -8,7 +9,9 @@ import {MathValidators} from '../math-validators';
   styleUrls: ['./equation.component.css']
 })
 export class EquationComponent implements OnInit {
-
+  
+  secondsPerSolution:number=0;
+  
   mathForm=new FormGroup({
     a:new FormControl(this.randomNumber()),
     b:new FormControl(this.randomNumber()),
@@ -17,33 +20,39 @@ export class EquationComponent implements OnInit {
     MathValidators.addition('answer','a','b')
   ]
 );
-
   constructor() { }
-
-  ngOnInit(): void {
-    this.mathForm.statusChanges.subscribe(value=>{
-        if(value=='INVALID'){
-          return;
-        }
-        this.mathForm.setValue({
-          a:this.randomNumber(),
-          b:this.randomNumber(),
-          answer:''
-        });
-;
-    });
-  }
   //make random value till it refresh
   randomNumber(): number{
     return Math.floor(Math.random()*10);
   }
-
   //get method for easy without accessing math.value.a
   get a(){
     return this.mathForm.value.a;
   }
-
   get b(){
     return this.mathForm.value.b;
+  }
+
+  ngOnInit() {
+    const startTime=new Date();
+    let numberSolved=0;
+
+    this.mathForm.statusChanges
+      .pipe(
+        filter(value => value === 'VALID'),
+        delay(100)
+      )
+      .subscribe(() => {
+        numberSolved++;
+        this.secondsPerSolution=
+        (new Date().getTime()-startTime.getTime()
+      )/numberSolved/1000;
+
+        this.mathForm.setValue({
+          a: this.randomNumber(),
+          b: this.randomNumber(),
+          answer: ''
+        });
+      });
   }
 }
