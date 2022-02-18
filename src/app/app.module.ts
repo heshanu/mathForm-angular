@@ -4,10 +4,12 @@ import {ReactiveFormsModule} from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EquationComponent } from './equation/equation.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EquationComponent
   ],
   imports: [
     BrowserModule,
