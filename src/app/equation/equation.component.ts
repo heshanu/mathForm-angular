@@ -13,7 +13,7 @@ export class EquationComponent implements OnInit {
     a:new FormControl(this.randomNumber()),
     b:new FormControl(this.randomNumber()),
     answer:new FormControl('')
-  });
+  },[MathValidators.addition]);
 
   constructor() { }
 
