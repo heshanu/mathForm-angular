@@ -20,6 +20,7 @@ export class EquationComponent implements OnInit {
     MathValidators.addition('answer','a','b')
   ]
 );
+
   constructor() { }
   //make random value till it refresh
   randomNumber(): number{
@@ -34,7 +35,6 @@ export class EquationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.mathForm.statusChanges
       .pipe(
         filter(value => value ==="VALID"),
